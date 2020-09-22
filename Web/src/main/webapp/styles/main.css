@@ -1,0 +1,265 @@
+header {
+  background-color: rgba(70, 70, 70, 0.7);
+
+  color: black;
+
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+header div {
+  display: inline-block;
+}
+
+header h1 {
+  cursor: pointer;
+  font: 5vw arial;
+  text-align: center;
+  text-shadow: #fff 0px 0px 5px,   #fff 0px 0px 5px,   #fff 0px 0px 5px,
+               #fff 0px 0px 5px,   #fff 0px 0px 5px,   #fff 0px 0px 5px;
+}
+
+header p a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+header p {
+  color: #ccc;
+  font: 1vw arial;
+  text-align: left;
+  margin-left: 0.5vw;
+
+  text-shadow: 0px;
+  /*#fff 0px 0px 1px,   #fff 0px 0px 1px,   #fff 0px 0px 1px,
+               #fff 0px 0px 1px,   #fff 0px 0px 1px,   #fff 0px 0px 1px;*/
+
+}
+
+#nicknameFormContainer {
+  margin: auto;
+  width: 80%;
+  margin-top: 3vw;
+}
+
+#menuContainer {
+  margin: auto;
+  width: 80%;
+  margin-top: 6vw;
+}
+
+#standardContainer {
+  float: left;
+  width: 40%;
+}
+
+#survivalContainer {
+  float: right;
+  width: 40%;
+}
+
+.play-button {
+  margin: auto;
+  display: block;
+
+  color: white;
+  background-color: rgba(70, 70, 70, 0.7);
+
+  border: 0.2vw solid white;
+  border-radius: 0.5vw;
+  padding: 1.5vw;
+  margin-top: 2vw;
+  text-align: center;
+  font: 2.3vw arial;
+
+  text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+               #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
+}
+
+.play-button:hover {
+  cursor: pointer;
+
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(70, 70, 70, 0.5);
+  border: 0.2vw solid rgba(255, 255, 255, 0.5);
+
+  text-shadow: rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px,
+                 rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px;
+}
+
+
+/*Styling the ranking tables*/
+table, th, td {
+  border: 0.2vw solid white;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.5vw;
+}
+
+table {
+  color: white;
+  background-color: rgba(70, 70, 70, 0.7);
+  font: 1.5vw arial;
+}
+
+table caption {
+  margin-bottom: 1vw;
+  border: 0.2vw solid white;
+  padding-top: 0.2vw;
+  padding-bottom: 0.2vw;
+}
+
+#nicknameFormContainer {
+  display: block;
+  width: 30vw;
+  color: white;
+  background-color: rgba(70, 70, 70, 0.7);
+
+  border: 0.2vw solid white;
+  border-radius: 0.5vw;
+  padding: 1vw;
+}
+
+#nicknameFormContainer h1 {
+  margin-bottom: 1vw;
+  text-align: center;
+  font: 2vw arial;
+}
+
+#nicknameForm {
+  width: 70%;
+  margin: 0 auto;
+}
+
+#nicknameForm input {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  font: 1.5vw arial;
+  line-height: 2vw;
+}
+
+#nicknameForm button {
+  display: block;
+  margin: 0 auto;
+
+  color: white;
+  background-color: rgba(70, 70, 70, 0.7);
+
+  border: 0.2vw solid white;
+  border-radius: 0.5vw;
+  padding: 0.7vw;
+  margin-top: 1.2vw;
+  text-align: center;
+  font: 1.5vw arial;
+
+  text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+               #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
+
+}
+
+#nicknameForm button:hover {
+  cursor: pointer;
+
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(70, 70, 70, 0.5);
+  border: 0.2vw solid rgba(255, 255, 255, 0.5);
+
+  text-shadow: rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px,
+                 rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px, rgba(0,0,0,0.7) 0px 0px 1px;
+}
+
+
+
+/*Style the game page*/
+
+.game-wrapper {
+  width: 60%;
+  text-align: center;
+  display: block;
+  margin: 2% auto;
+  background-color: #777;
+  padding: 1%;
+
+  background-color: rgba(70, 70, 70, 0.7);
+
+  border: 0.2vw solid white;
+  border-radius: 0.5vw;
+
+}
+
+.game-canvas {
+  margin: auto;
+  margin-top: 2%;
+  display: block;
+  width: 100%;
+}
+
+.user-controls {
+  text-align: center;
+  display: inline-block;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.user-input {
+  display: inline-block;
+  padding-left: 0.7vw;
+  padding-top: 0.7vw;
+  padding-bottom: 0.7vw;
+
+  vertical-align: middle;
+
+  width: 50%;
+  float: left;
+}
+
+.time-left {
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+  color: #ccc;
+  font: 1.5vw arial;
+  padding: 0.4vw;
+  float: left;
+  margin-left: 0.5%;
+
+  background-color: rgba(70, 70, 70, 0.7);
+
+  border: 0.2vw solid white;
+  border-radius: 0.5vw;
+
+}
+
+.score-display {
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+  color: #ccc;
+  font: 1.5vw arial;
+  padding: 0.4vw;
+  float: right;
+
+  background-color: rgba(70, 70, 70, 0.7);
+
+  border: 0.2vw solid white;
+  border-radius: 0.5vw;
+
+}
+
+.reset-button {
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+  font: 1.5vw arial;
+  padding-top: 0.4vw;
+  padding-bottom: 0.4vw;
+  float: left;
+  margin-left: 0.5%;
+}
