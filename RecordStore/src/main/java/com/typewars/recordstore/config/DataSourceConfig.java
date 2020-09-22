@@ -16,10 +16,10 @@ public class DataSourceConfig {
   private final String driverClassName;
 
   public DataSourceConfig(
-      @Value("spring.datasource.jdbc-url") String jdbcUrl,
-      @Value("spring.datasource.username") String username,
-      @Value("spring.datasource.password") String password,
-      @Value("spring.datasource.driver-class-name") String driverClassName) {
+      @Value("${spring.datasource.jdbc-url}") String jdbcUrl,
+      @Value("${spring.datasource.username}") String username,
+      @Value("${spring.datasource.password}") String password,
+      @Value("${spring.datasource.driver-class-name}") String driverClassName) {
     this.jdbcUrl = jdbcUrl;
     this.username = username;
     this.password = password;
