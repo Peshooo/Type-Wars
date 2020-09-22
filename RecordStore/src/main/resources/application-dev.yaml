@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    jdbc-url: jdbc:mariadb://127.0.0.1:3306/typer
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+  flyway:
+    url: jdbc:mariadb://127.0.0.1:3306/typer
+    user: root
+    password: root
+    baseline-on-migrate: true

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Web" />
+        <module name="GameServer" />
+        <module name="RecordStore" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="GameServer" target="1.8" />
+      <module name="RecordStore" target="1.8" />
+      <module name="Type-Wars" target="1.8" />
+      <module name="Web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="GameServer" options="-parameters" />
+      <module name="RecordStore" options="-parameters" />
+      <module name="Web" options="-parameters" />
+    </option>
+  </component>
+</project>
