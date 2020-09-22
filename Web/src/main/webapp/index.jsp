@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.typer.web.recordstore.RecordStoreClient" %>
-<%@ page import="com.typer.web.recordstore.SurvivalRecord" %>
+<%@ page import="com.typewars.web.recordstore.RecordStoreClient" %>
+<%@ page import="com.typewars.web.recordstore.SurvivalRecord" %>
 <% RecordStoreClient recordStoreClient = (RecordStoreClient) request.getAttribute("recordStoreClient"); %>
 <% List<SurvivalRecord> survivalRecords = recordStoreClient.getTopFiveSurvivalRecords(); %>
 
