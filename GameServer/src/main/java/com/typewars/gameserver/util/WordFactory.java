@@ -3,7 +3,6 @@ package com.typewars.gameserver.util;
 import com.typewars.gameserver.common.Position;
 import com.typewars.gameserver.common.Size;
 import com.typewars.gameserver.common.Word;
-import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 

@@ -5,8 +5,6 @@ import com.typewars.gameserver.common.GameStatus;
 import com.typewars.gameserver.model.SurvivalRecord;
 import com.typewars.gameserver.recordstore.RecordStoreClient;
 import com.typewars.gameserver.repository.GameRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -16,8 +14,6 @@ import java.util.UUID;
 
 @Service
 public class GameService {
-  private final Logger logger = LoggerFactory.getLogger(getClass());
-
   private final GameRepository gameRepository;
   private final RecordStoreClient recordStoreClient;
 
@@ -31,8 +27,6 @@ public class GameService {
     GameLogic gameLogic = new GameLogic(gameId, nickname);
     gameRepository.save(gameLogic);
     startGameLoop(gameId);
-
-    logger.info("Returning id {}", gameId);
 
     return gameId;
   }
@@ -61,7 +55,6 @@ public class GameService {
   }
 
   private void afterGameFinished(GameState gameState) {
-    logger.info("Finished game {}", gameState);
     SurvivalRecord survivalRecord =
         new SurvivalRecord(gameState.getId(), gameState.getNickname(), gameState.getScore(), OffsetDateTime.now());
     recordStoreClient.saveSurvivalRecord(survivalRecord);

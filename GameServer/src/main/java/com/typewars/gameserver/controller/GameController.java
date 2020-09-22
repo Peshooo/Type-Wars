@@ -3,16 +3,12 @@ package com.typewars.gameserver.controller;
 import com.typewars.gameserver.common.CreateGameResponse;
 import com.typewars.gameserver.common.GameState;
 import com.typewars.gameserver.service.GameService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/game")
 public class GameController {
-  private static final Logger logger = LoggerFactory.getLogger(GameController.class);
-
   private final GameService gameService;
 
   @Autowired
@@ -22,7 +18,6 @@ public class GameController {
 
   @PostMapping
   public CreateGameResponse createGame(@RequestParam String nickname) {
-    logger.info("Received request for {}", nickname);
     return new CreateGameResponse(gameService.createGame(nickname));
   }
 
