@@ -1,7 +1,6 @@
 server:
   port: 8081
 
-
 record-store:
   base-url: http://localhost:8082/
   survival-endpoint: /survival

@@ -51,7 +51,7 @@ public class WordProvider {
     throw new RuntimeException(errorMessage);
   }
 
-  public static String getWord() {
+  public static synchronized String getWord() {
     int wordIdx = random.nextInt(words.size());
     return words.get(wordIdx);
   }

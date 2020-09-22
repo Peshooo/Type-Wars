@@ -11,7 +11,7 @@ public class WidthMeasurer {
   private WidthMeasurer() {
   }
 
-  public static int measureWordWidth(String word) {
+  public static synchronized int measureWordWidth(String word) {
     double widthSum = 0;
 
     for (int i = 0; i < word.length(); i++) {

@@ -22,7 +22,7 @@ public class WordFactory {
   private WordFactory() {
   }
 
-  public static Word create(String word) {
+  public static synchronized Word create(String word) {
     Word gameWord = new Word(word);
     gameWord.setColor(generateRandomColor());
     gameWord.setVelocity(generateVelocity());

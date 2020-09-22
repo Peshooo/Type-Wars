@@ -35,7 +35,7 @@
     </div>
 
     <div style="width: 50vw; cursor: default">
-        <h1 style="cursor: pointer"><strong>Crazy Typer</strong></h1>
+        <h1 style="cursor: pointer" onclick="window.location.href = '/'"><strong>Type Wars</strong></h1>
     </div>
 
           <div style="width: 25vw;">
