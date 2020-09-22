@@ -5,6 +5,8 @@ import com.typewars.gameserver.common.GameStatus;
 import com.typewars.gameserver.model.SurvivalRecord;
 import com.typewars.gameserver.recordstore.RecordStoreClient;
 import com.typewars.gameserver.repository.GameRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -14,6 +16,8 @@ import java.util.UUID;
 
 @Service
 public class GameService {
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+
   private final GameRepository gameRepository;
   private final RecordStoreClient recordStoreClient;
 
@@ -40,16 +44,20 @@ public class GameService {
     timer.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
-        GameLogic gameLogic = gameRepository.get(gameId);
+        try {
+          GameLogic gameLogic = gameRepository.get(gameId);
 
-        if (gameLogic.getGameStatus() == GameStatus.FINISHED) {
-          afterGameFinished(gameLogic);
-          cancel();
+          if (gameLogic.getGameStatus() == GameStatus.FINISHED) {
+            afterGameFinished(gameLogic);
+            cancel();
+          }
+
+          gameLogic.updateGame();
+
+          gameRepository.save(gameLogic);
+        } catch (Exception e) {
+          logger.info("Exception in thread run ", e);
         }
-
-        gameLogic.updateGame();
-
-        gameRepository.save(gameLogic);
       }
     }, 32, 32);
   }
