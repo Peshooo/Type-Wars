@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<% String gameMode = (String) request.getAttribute("gameMode"); %>
+<% String proxyUrl = "\"" + "http://localhost:8080/proxy/" + gameMode + "/" + "\""; %>
 <!doctype html>
 <html>
 <head>
@@ -13,6 +14,17 @@
     <link rel="stylesheet" type="text/css" href="styles/resetsheet.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
 
+
+    <script>
+        window.onload = focusUserInput;
+
+        function focusUserInput() {
+            document.getElementById("userInput").focus();
+        }
+
+
+        window.onload = focusUserInput;
+    </script>
     <script src="scripts/word_t.js"></script>
 </head>
 
@@ -32,41 +44,43 @@
     </header>
 
     <script>
-        var nickname = "Pesho";
         var gameId;
 
-        let http = new XMLHttpRequest();
-        http.open("POST", "http://localhost:8080/proxy", true);
-        http.responseType = "json";
-        http.onload = function() {
-            gameId = http.response.gameId;
-            console.log("Game id is " + gameId);
+        function generateGameId() {
+            let http = new XMLHttpRequest();
+            http.open("POST", <%=proxyUrl%>, true);
+            http.responseType = "json";
+            http.onload = function() {
+                gameId = http.response.gameId;
+            }
+            http.send();
         }
-        http.send();
+
+        generateGameId();
     </script>
 
     <iframe width="0" height="0
         <div style="width: 25vw;">
         </div>
-    </header>" border="0" name="dummyframesurvival" id="dummyframesurvival"></iframe>
+    </header>" border="0" name="dummyframe" id="dummyframe"></iframe>
 
     <div class = "game-wrapper">
-        <canvas class = "game-canvas" id = "survivalCanvas" width = "1200" height = "600"></canvas>
+        <canvas class = "game-canvas" id = "canvas" width = "1200" height = "600"></canvas>
 
         <div class = "user-controls">
-            <input class = "user-input" type = "text" id = "survivalUserInput" placeholder = "Type words here">
-            <div class = "time-left" id = "survivalTimer">60</div>
-            <button class = "reset-button" id = "survivalResetButton">Reset</button>
-            <div class = "score-display" id = "survivalScore">Score: 0</div>
+            <input class = "user-input" type = "text" id = "userInput" placeholder = "Type words here">
+            <div class = "time-left" id = "timer">60</div>
+            <button class = "reset-button" id = "resetButton" onclick="generateGameId(); startIntervals(); focusUserInput();">Reset</button>
+            <div class = "score-display" id = "score">Score: 0</div>
         </div>
 
         <script>
-            var canvas = document.getElementById("survivalCanvas");
+            var canvas = document.getElementById("canvas");
             var ctx = canvas.getContext("2d");
             var activeWords = [];
-            var userInput = document.getElementById("survivalUserInput");
-            var timer = document.getElementById("survivalTimer");
-            var score = document.getElementById("survivalScore");
+            var userInput = document.getElementById("userInput");
+            var timer = document.getElementById("timer");
+            var score = document.getElementById("score");
             var getGameStateInterval;
             var renderInterval;
 
@@ -78,7 +92,7 @@
                 userInput.value = "";
 
                 let request = new XMLHttpRequest();
-                request.open('PUT', 'http://localhost:8080/proxy/' + gameId + "?word=" + word, true);
+                request.open('PUT', <%=proxyUrl%> + gameId + "?word=" + word, true);
                 request.send();
               }
             }
@@ -131,7 +145,7 @@
 
             function getGameState() {
                 let request = new XMLHttpRequest();
-                request.open('GET', 'http://localhost:8080/proxy/' + gameId, true);
+                request.open('GET', <%=proxyUrl%> + gameId, true);
                 request.responseType = 'json';
                 request.onreadystatechange = function() {
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -166,8 +180,12 @@
                 request.send(gameId);
             }
 
-            getGameStateInterval = setInterval(getGameState, 32);
-            renderInterval = setInterval(render, 32);
+            function startIntervals() {
+                getGameStateInterval = setInterval(getGameState, 32);
+                renderInterval = setInterval(render, 32);
+            }
+
+            startIntervals();
         </script>
     </div>
 </body>

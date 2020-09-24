@@ -9,8 +9,6 @@ import java.util.Map;
 
 @Repository
 public class GameRepositoryImpl implements GameRepository {
-  private static final String HASH_NAME = "game";
-
   private final RedisTemplate<String, GameLogic> redisTemplate;
   private final HashOperations<String, String, GameLogic> hashOperations;
 
@@ -20,22 +18,22 @@ public class GameRepositoryImpl implements GameRepository {
   }
 
   @Override
-  public void save(GameLogic gameLogic) {
-    hashOperations.put(HASH_NAME, gameLogic.getId(), gameLogic);
+  public void save(String gameMode, GameLogic gameLogic) {
+    hashOperations.put(gameMode, gameLogic.getId(), gameLogic);
   }
 
   @Override
-  public Map<String, GameLogic> getAll() {
-    return hashOperations.entries(HASH_NAME);
+  public Map<String, GameLogic> getAll(String gameMode) {
+    return hashOperations.entries(gameMode);
   }
 
   @Override
-  public GameLogic get(String id) {
-    return hashOperations.get(HASH_NAME, id);
+  public GameLogic get(String gameMode, String id) {
+    return hashOperations.get(gameMode, id);
   }
 
   @Override
-  public void delete(String id) {
-    hashOperations.delete(HASH_NAME, id);
+  public void delete(String gameMode, String id) {
+    hashOperations.delete(gameMode, id);
   }
 }

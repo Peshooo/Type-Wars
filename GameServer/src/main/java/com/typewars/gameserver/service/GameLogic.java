@@ -7,19 +7,13 @@ import com.typewars.gameserver.util.WordFactory;
 import com.typewars.gameserver.util.WordProvider;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-public class GameLogic extends GameState {
-  private static final long MAXIMUM_TIME_MILLIS = 10000;
-  private static final long INITIAL_TIME_MILLIS = 10000;
-  private static final long ADDITIONAL_MILLIS_PER_WORD = 1000;
+public abstract class GameLogic extends GameState {
+  protected static final int WORDS_ON_SCREEN = 10;
+  protected static final int CANVAS_WIDTH = 1200;
+  protected static final int CANVAS_HEIGHT = 600;
 
-  private static final int WORDS_ON_SCREEN = 10;
-
-  private static final int CANVAS_WIDTH = 1200;
-  private static final int CANVAS_HEIGHT = 600;
-
-  private long lastTimeMillis;
+  protected long lastTimeMillis;
 
   public GameLogic(String id, String nickname) {
     super(id, nickname);
@@ -27,11 +21,27 @@ public class GameLogic extends GameState {
     words = new ArrayList<>();
     score = 0;
     gameStatus = GameStatus.NOT_STARTED;
-    timeLeftMillis = INITIAL_TIME_MILLIS;
     lastTimeMillis = System.currentTimeMillis();
 
     refillWords();
   }
+
+  public synchronized void enterWord(String enteredWord) {
+    if (this.gameStatus == GameStatus.FINISHED) {
+      return;
+    }
+
+    if (this.gameStatus == GameStatus.NOT_STARTED) {
+      this.gameStatus = GameStatus.RUNNING;
+      this.lastTimeMillis = System.currentTimeMillis();
+    }
+
+    processEnteredWord(enteredWord);
+
+    refillWords();
+  }
+
+  protected abstract void processEnteredWord(String enteredWord);
 
   public synchronized void updateGame() {
     words.forEach(Word::move);
@@ -40,7 +50,7 @@ public class GameLogic extends GameState {
     updateTimeIfRunning();
   }
 
-  private boolean notOnCanvas(Word word) {
+  protected boolean notOnCanvas(Word word) {
     if (word.getPosition().getX() < 0 || word.getPosition().getY() < 0) {
       return true;
     }
@@ -68,33 +78,6 @@ public class GameLogic extends GameState {
       this.timeLeftMillis = 0;
       this.gameStatus = GameStatus.FINISHED;
     }
-  }
-
-  public synchronized void enterWord(String enteredWord) {
-    if (this.gameStatus == GameStatus.FINISHED) {
-      return;
-    }
-
-    if (this.gameStatus == GameStatus.NOT_STARTED) {
-      this.gameStatus = GameStatus.RUNNING;
-      this.lastTimeMillis = System.currentTimeMillis();
-    }
-
-    Iterator<Word> wordIterator = words.iterator();
-
-    while (wordIterator.hasNext()) {
-      String word = wordIterator.next().getWord();
-
-      if (word.equals(enteredWord)) {
-        this.timeLeftMillis += ADDITIONAL_MILLIS_PER_WORD;
-        this.score += word.length();
-        wordIterator.remove();
-      }
-    }
-
-    this.timeLeftMillis = Math.min(this.timeLeftMillis, MAXIMUM_TIME_MILLIS);
-
-    refillWords();
   }
 
   private void refillWords() {

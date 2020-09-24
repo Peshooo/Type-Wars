@@ -11,25 +11,22 @@ import java.util.List;
 @Component
 public class RecordStoreClient {
   private final String baseUrl;
-  private final String survivalEndpoint;
   private final RestTemplate restTemplate;
 
   public RecordStoreClient(
-      @Value("${record-store.base-url}") String baseUrl,
-      @Value("${record-store.survival-endpoint}") String survivalEndpoint) {
+      @Value("${record-store.base-url}") String baseUrl) {
     this.baseUrl = baseUrl;
-    this.survivalEndpoint = survivalEndpoint;
     restTemplate = new RestTemplate();
   }
 
-  public List<SurvivalRecord> getTopFiveSurvivalRecords() {
+  public List<GameRecord> getTopFiveRecords(String gameMode) {
     String url = UriComponentsBuilder.fromHttpUrl(baseUrl)
-        .pathSegment(survivalEndpoint)
+        .pathSegment(gameMode)
         .build()
         .toString();
 
-    SurvivalRecord[] survivalRecords = restTemplate.getForObject(url, SurvivalRecord[].class);
+    GameRecord[] gameRecords = restTemplate.getForObject(url, GameRecord[].class);
 
-    return Arrays.asList(survivalRecords);
+    return Arrays.asList(gameRecords);
   }
 }

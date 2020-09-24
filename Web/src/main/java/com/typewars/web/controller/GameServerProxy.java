@@ -16,19 +16,19 @@ public class GameServerProxy {
     this.gameServerClient = gameServerClient;
   }
 
-  @PostMapping
-  public CreateGameResponse createGame(HttpServletRequest request) {
+  @PostMapping("/{gameMode}")
+  public CreateGameResponse createGame(@PathVariable String gameMode, HttpServletRequest request) {
     String nickname = (String) request.getSession().getAttribute("nickname");
-    return gameServerClient.createGame(nickname);
+    return gameServerClient.createGame(gameMode, nickname);
   }
 
-  @GetMapping("/{gameId}")
-  public GameState getGameState(@PathVariable String gameId) {
-    return gameServerClient.getGameState(gameId);
+  @GetMapping("/{gameMode}/{gameId}")
+  public GameState getGameState(@PathVariable String gameMode, @PathVariable String gameId) {
+    return gameServerClient.getGameState(gameMode, gameId);
   }
 
-  @PutMapping("/{gameId}")
-  public void enterWord(@PathVariable String gameId, @RequestParam String word) {
-    gameServerClient.enterWord(gameId, word);
+  @PutMapping("/{gameMode}/{gameId}")
+  public void enterWord(@PathVariable String gameMode, @PathVariable String gameId, @RequestParam String word) {
+    gameServerClient.enterWord(gameMode, gameId, word);
   }
 }

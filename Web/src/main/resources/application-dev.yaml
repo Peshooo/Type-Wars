@@ -2,7 +2,7 @@ server:
   port: 8080
 
 game-server:
-  base-url: http://localhost:8081/game/
+  base-url: http://localhost:8081/
 
 record-store:
   base-url: http://localhost:8082/

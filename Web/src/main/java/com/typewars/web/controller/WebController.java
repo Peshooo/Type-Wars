@@ -28,9 +28,24 @@ public class WebController {
     return new ModelAndView("index", context);
   }
 
+  @RequestMapping("/standard")
+  public ModelAndView standard(HttpServletRequest request, HttpServletResponse response) {
+    Map<String, Object> context =
+        ImmutableMap.<String, Object>builder()
+            .put("gameMode", "standard")
+            .build();
+
+    return new ModelAndView("game", context);
+  }
+
   @RequestMapping("/survival")
   public ModelAndView survival(HttpServletRequest request, HttpServletResponse response) {
-    return new ModelAndView("survival");
+    Map<String, Object> context =
+        ImmutableMap.<String, Object>builder()
+            .put("gameMode", "survival")
+            .build();
+
+    return new ModelAndView("game", context);
   }
 
   @RequestMapping("/nickname")

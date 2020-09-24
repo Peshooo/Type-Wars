@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.typewars.web.recordstore.RecordStoreClient" %>
-<%@ page import="com.typewars.web.recordstore.SurvivalRecord" %>
+<%@ page import="com.typewars.web.recordstore.GameRecord" %>
 <% RecordStoreClient recordStoreClient = (RecordStoreClient) request.getAttribute("recordStoreClient"); %>
-<% List<SurvivalRecord> survivalRecords = recordStoreClient.getTopFiveSurvivalRecords(); %>
+<% List<GameRecord> standardRecords = recordStoreClient.getTopFiveRecords("standard"); %>
+<% List<GameRecord> survivalRecords = recordStoreClient.getTopFiveRecords("survival"); %>
 
 <!doctype html>
 <html>
@@ -48,32 +49,32 @@
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td>Pesho1</td>
-                    <td>200</td>
+                    <td><%= standardRecords.size() >= 1 ? standardRecords.get(0).getNickname() : "" %></td>
+                    <td><%= standardRecords.size() >= 1 ? standardRecords.get(0).getScore() : "" %></td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Pesho2</td>
-                    <td>190</td>
+                    <td><%= standardRecords.size() >= 2 ? standardRecords.get(1).getNickname() : "" %></td>
+                    <td><%= standardRecords.size() >= 2 ? standardRecords.get(1).getScore() : "" %></td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Pesho3</td>
-                    <td>180</td>
+                    <td><%= standardRecords.size() >= 3 ? standardRecords.get(2).getNickname() : "" %></td>
+                    <td><%= standardRecords.size() >= 3 ? standardRecords.get(2).getScore() : "" %></td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Pesho4</td>
-                    <td>170</td>
+                    <td><%= standardRecords.size() >= 4 ? standardRecords.get(3).getNickname() : "" %></td>
+                    <td><%= standardRecords.size() >= 4 ? standardRecords.get(3).getScore() : "" %></td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Pesho5</td>
-                    <td>160</td>
+                    <td><%= survivalRecords.size() >= 5 ? standardRecords.get(4).getNickname() : "" %></td>
+                    <td><%= survivalRecords.size() >= 5 ? standardRecords.get(4).getScore() : "" %></td>
                 </tr>
             </table>
 
-            <button class="play-button" title="You have 60 seconds to type words you see on the screen. Your score is the total number of letters in the words you type correctly.">Standard</button>
+            <button class="play-button" onclick="window.location.href='standard'" title="You have 60 seconds to type words you see on the screen. Your score is the total number of letters in the words you type correctly.">Standard</button>
         </div>
 
         <div class="table-button" id="survivalContainer">

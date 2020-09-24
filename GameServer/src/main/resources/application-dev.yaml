@@ -1,6 +1,11 @@
 server:
   port: 8081
 
+game:
+  standard-mode:
+    name: standard
+  survival-mode:
+    name: survival
+
 record-store:
   base-url: http://localhost:8082/
-  survival-endpoint: /survival

@@ -2,16 +2,16 @@ package com.typewars.web.recordstore;
 
 import java.time.OffsetDateTime;
 
-public class SurvivalRecord {
+public class GameRecord {
   private String gameUuid;
   private String nickname;
   private long score;
   private OffsetDateTime createdAt;
 
-  public SurvivalRecord() {
+  public GameRecord() {
   }
 
-  public SurvivalRecord(String gameUuid, String nickname, long score, OffsetDateTime createdAt) {
+  public GameRecord(String gameUuid, String nickname, long score, OffsetDateTime createdAt) {
     this.gameUuid = gameUuid;
     this.nickname = nickname;
     this.score = score;

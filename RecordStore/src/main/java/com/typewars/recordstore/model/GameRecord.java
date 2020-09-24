@@ -1,19 +1,17 @@
-package com.typewars.gameserver.model;
-
-import com.typewars.gameserver.common.PrintableJson;
+package com.typewars.recordstore.model;
 
 import java.time.OffsetDateTime;
 
-public class SurvivalRecord extends PrintableJson {
+public class GameRecord {
   private String gameUuid;
   private String nickname;
   private long score;
   private OffsetDateTime createdAt;
 
-  public SurvivalRecord() {
+  public GameRecord() {
   }
 
-  public SurvivalRecord(String gameUuid, String nickname, long score, OffsetDateTime createdAt) {
+  public GameRecord(String gameUuid, String nickname, long score, OffsetDateTime createdAt) {
     this.gameUuid = gameUuid;
     this.nickname = nickname;
     this.score = score;

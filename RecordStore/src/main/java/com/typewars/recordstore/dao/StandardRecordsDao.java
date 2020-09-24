@@ -12,9 +12,9 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @DependsOn("flywayInitializer")
 @EnableScheduling
-public class SurvivalRecordsDao extends RecordsDao {
-  public SurvivalRecordsDao(
-      @Value("${game.survival-mode.name}") String gameMode,
+public class StandardRecordsDao extends RecordsDao {
+  public StandardRecordsDao(
+      @Value("${game.standard-mode.name}") String gameMode,
       DataSource dataSource) {
     super(gameMode, dataSource);
   }
