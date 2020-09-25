@@ -15,7 +15,7 @@ public class WordFactory {
   private static final int CANVAS_HEIGHT = 600;
 
   private static final int MINIMUM_SPEED = 2;
-  private static final int MAXIMUM_SPEED = 7;
+  private static final int MAXIMUM_SPEED = 6;
 
   private static final Random random = new Random();
 

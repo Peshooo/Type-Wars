@@ -18,6 +18,7 @@ public abstract class GameLogic extends GameState {
   public GameLogic(String id, String nickname) {
     super(id, nickname);
 
+    createdAt = System.currentTimeMillis();
     words = new ArrayList<>();
     score = 0;
     gameStatus = GameStatus.NOT_STARTED;

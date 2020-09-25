@@ -59,6 +59,16 @@
         generateGameId();
     </script>
 
+    <script>
+        function resetGame() {
+            generateGameId();
+            startIntervals();
+            focusUserInput();
+            timer.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
+            score.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
+        }
+    </script>
+
     <iframe width="0" height="0
         <div style="width: 25vw;">
         </div>
@@ -70,7 +80,7 @@
         <div class = "user-controls">
             <input class = "user-input" type = "text" id = "userInput" placeholder = "Type words here">
             <div class = "time-left" id = "timer">60</div>
-            <button class = "reset-button" id = "resetButton" onclick="generateGameId(); startIntervals(); focusUserInput();">Reset</button>
+            <button class = "reset-button" id = "resetButton" onclick="resetGame();">Reset</button>
             <div class = "score-display" id = "score">Score: 0</div>
         </div>
 
@@ -151,15 +161,26 @@
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                         let gameState = request.response;
 
+                        if (gameState == null) {
+                            clearInterval(getGameStateInterval);
+                            clearInterval(renderInterval);
+                            document.getElementById("resetButton").click();
+                            return;
+                        }
+
+                        console.log("Game state: ", gameState);
+
                         if (gameState.gameStatus == 'FINISHED') {
                             drawScore(gameState.score);
                             clearInterval(getGameStateInterval);
                             clearInterval(renderInterval);
                             return;
+                        } else {
+                            timer.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
+                            score.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
                         }
 
                         let wordsList = gameState.words;
-                        console.log("Game status: " + gameState.gameStatus);
 
                         score.innerHTML = "Score: " + gameState.score;
                         timer.innerHTML = Math.ceil(gameState.timeLeftMillis / 1000);

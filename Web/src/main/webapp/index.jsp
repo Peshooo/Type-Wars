@@ -69,8 +69,8 @@
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td><%= survivalRecords.size() >= 5 ? standardRecords.get(4).getNickname() : "" %></td>
-                    <td><%= survivalRecords.size() >= 5 ? standardRecords.get(4).getScore() : "" %></td>
+                    <td><%= standardRecords.size() >= 5 ? standardRecords.get(4).getNickname() : "" %></td>
+                    <td><%= standardRecords.size() >= 5 ? standardRecords.get(4).getScore() : "" %></td>
                 </tr>
             </table>
 

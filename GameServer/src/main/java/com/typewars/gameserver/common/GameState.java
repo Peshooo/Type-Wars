@@ -8,6 +8,9 @@ public class GameState extends PrintableJson {
   @JsonIgnore
   protected String id;
 
+  @JsonIgnore
+  protected long createdAt;
+
   protected String nickname;
 
   protected long score;
@@ -29,6 +32,14 @@ public class GameState extends PrintableJson {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public long getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(long createdAt) {
+    this.createdAt = createdAt;
   }
 
   public synchronized long getScore() {
