@@ -7,12 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
-@Repository
-public class GameRepositoryImpl implements GameRepository {
+//@Repository
+public class RedisRepository implements GameRepository {
   private final RedisTemplate<String, GameLogic> redisTemplate;
   private final HashOperations<String, String, GameLogic> hashOperations;
 
-  public GameRepositoryImpl(RedisTemplate<String, GameLogic> redisTemplate) {
+  public RedisRepository(RedisTemplate<String, GameLogic> redisTemplate) {
     this.redisTemplate = redisTemplate;
     hashOperations = redisTemplate.opsForHash();
   }

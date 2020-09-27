@@ -22,7 +22,6 @@
             document.getElementById("userInput").focus();
         }
 
-
         window.onload = focusUserInput;
     </script>
     <script src="scripts/word_t.js"></script>
@@ -61,6 +60,8 @@
 
     <script>
         function resetGame() {
+            clearInterval(renderInterval);
+            clearInterval(getGameStateInterval);
             generateGameId();
             startIntervals();
             focusUserInput();
@@ -162,8 +163,6 @@
                         let gameState = request.response;
 
                         if (gameState == null) {
-                            clearInterval(getGameStateInterval);
-                            clearInterval(renderInterval);
                             document.getElementById("resetButton").click();
                             return;
                         }
@@ -171,9 +170,9 @@
                         console.log("Game state: ", gameState);
 
                         if (gameState.gameStatus == 'FINISHED') {
+                            clearInterval(renderInterval);
                             drawScore(gameState.score);
                             clearInterval(getGameStateInterval);
-                            clearInterval(renderInterval);
                             return;
                         } else {
                             timer.style.backgroundColor = "rgba(70, 70, 70, 0.7)";

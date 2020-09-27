@@ -16,7 +16,8 @@ public class GameLoopTimerTask extends TimerTask {
   private static final Logger logger = LoggerFactory.getLogger(GameLoopTimerTask.class);
 
   private static final long NOT_STARTED_EXPIRATION_TIME_MILLIS = 60000;
-  private static final long DELETE_DELAY_MILLIS = 500;
+  private static final long DELETE_FINISHED_GAME_DELAY_MILLIS = 60000;
+  private static final long DELETE_EXPIRED_GAME_DELAY_MILLIS = 0;
 
   private final GameRepository gameRepository;
   private final RecordStoreClient recordStoreClient;
@@ -35,8 +36,8 @@ public class GameLoopTimerTask extends TimerTask {
     try {
       GameLogic gameLogic = gameRepository.get(gameMode, gameId);
 
-      checkIfFinished(gameLogic);
-      checkIfExpired(gameLogic);
+      checkFinished(gameLogic);
+      checkExpired(gameLogic);
 
       gameLogic.updateGame();
       gameRepository.save(gameMode, gameLogic);
@@ -45,17 +46,17 @@ public class GameLoopTimerTask extends TimerTask {
     }
   }
 
-  private void checkIfFinished(GameLogic gameLogic) {
+  private void checkFinished(GameLogic gameLogic) {
     if (gameLogic.getGameStatus() == GameStatus.FINISHED) {
       afterGameFinished(gameLogic);
       cancel();
     }
   }
 
-  private void checkIfExpired(GameLogic gameLogic) {
+  private void checkExpired(GameLogic gameLogic) {
     if (gameLogic.getGameStatus() == GameStatus.NOT_STARTED
         && System.currentTimeMillis() - gameLogic.getCreatedAt() > NOT_STARTED_EXPIRATION_TIME_MILLIS) {
-      scheduleDelete();
+      scheduleDelete(DELETE_EXPIRED_GAME_DELAY_MILLIS);
       cancel();
     }
   }
@@ -64,11 +65,11 @@ public class GameLoopTimerTask extends TimerTask {
     GameRecord gameRecord =
         new GameRecord(gameState.getId(), gameState.getNickname(), gameState.getScore(), OffsetDateTime.now());
     recordStoreClient.saveRecord(gameMode, gameRecord);
-    scheduleDelete();
+    scheduleDelete(DELETE_FINISHED_GAME_DELAY_MILLIS);
   }
 
-  private void scheduleDelete() {
+  private void scheduleDelete(long delay) {
     Timer deleteGameTimer = new Timer();
-    deleteGameTimer.schedule(new DeleteGameTimerTask(gameRepository, gameMode, gameId), DELETE_DELAY_MILLIS);
+    deleteGameTimer.schedule(new DeleteGameTimerTask(gameRepository, gameMode, gameId), delay);
   }
 }
