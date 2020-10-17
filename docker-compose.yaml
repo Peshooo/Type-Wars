@@ -1,0 +1,41 @@
+version: "3"
+services:
+  mariadb:
+    image: mariadb/server
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: typewars_records
+  record-store:
+    network_mode: host
+    build:
+      context: RecordStore/
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mariadb
+  redis:
+    image: redis
+    ports:
+     - "6379"
+  game-server:
+    network_mode: host
+    build:
+      context: GameServer/
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+      - record-store
+  web:
+    build:
+      context: Web/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - record-store
+      - game-server

@@ -11,6 +11,8 @@
 
     <artifactId>game-server</artifactId>
 
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -30,6 +32,7 @@
     </dependencies>
 
     <build>
+        <finalName>TypeWarsGameServer</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

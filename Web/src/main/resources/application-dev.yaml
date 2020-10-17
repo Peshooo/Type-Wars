@@ -6,4 +6,3 @@ game-server:
 
 record-store:
   base-url: http://localhost:8082/
-  survival-endpoint: /survival
