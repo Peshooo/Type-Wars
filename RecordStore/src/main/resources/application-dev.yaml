@@ -1,20 +1,6 @@
 server:
   port: 8082
 
-game:
-  standard-mode:
-    name: standard
-  survival-mode:
-    name: survival
-
-spring:
-  datasource:
-    jdbc-url: jdbc:mariadb://127.0.0.1:3306/typewars_records
-    username: root
-    password: root
-    driver-class-name: org.mariadb.jdbc.Driver
-  flyway:
-    url: jdbc:mariadb://127.0.0.1:3306/typewars_records
-    user: root
-    password: root
-    baseline-on-migrate: true
+JDBC_URL: jdbc:mariadb://127.0.0.1:3306/typewars_records
+JDBC_USERNAME: root
+JDBC_PASSWORD: root
