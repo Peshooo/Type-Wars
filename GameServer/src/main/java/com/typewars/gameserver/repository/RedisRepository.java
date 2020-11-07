@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
-@Repository
+//@Repository
 public class RedisRepository implements GameRepository {
   private final RedisTemplate<String, GameLogic> redisTemplate;
   private final HashOperations<String, String, GameLogic> hashOperations;

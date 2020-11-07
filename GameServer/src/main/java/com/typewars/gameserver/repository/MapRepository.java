@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-//@Repository
+@Repository
 public class MapRepository implements GameRepository {
-  private final Map<String, GameLogic> games;
+  private final ConcurrentHashMap<String, GameLogic> games;
 
   public MapRepository() {
     games = new ConcurrentHashMap<>();
