@@ -7,6 +7,7 @@ import com.typewars.gameserver.recordstore.RecordStoreClient;
 import com.typewars.gameserver.repository.GameRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.Timer;
@@ -32,6 +33,7 @@ public class GameLoopTimerTask extends TimerTask {
   }
 
   @Override
+  @Transactional
   public void run() {
     try {
       GameLogic gameLogic = gameRepository.get(gameMode, gameId);

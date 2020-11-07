@@ -27,7 +27,7 @@ public abstract class GameLogic extends GameState {
     refillWords();
   }
 
-  public synchronized void enterWord(String enteredWord) {
+  public void enterWord(String enteredWord) {
     if (this.gameStatus == GameStatus.FINISHED) {
       return;
     }
@@ -44,7 +44,7 @@ public abstract class GameLogic extends GameState {
 
   protected abstract void processEnteredWord(String enteredWord);
 
-  public synchronized void updateGame() {
+  public void updateGame() {
     words.forEach(Word::move);
     words.removeIf(this::notOnCanvas);
     refillWords();

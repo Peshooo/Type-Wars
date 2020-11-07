@@ -3,6 +3,7 @@ package com.typewars.gameserver.service;
 import com.typewars.gameserver.common.GameState;
 import com.typewars.gameserver.recordstore.RecordStoreClient;
 import com.typewars.gameserver.repository.GameRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Timer;
 import java.util.UUID;
@@ -44,6 +45,7 @@ public abstract class GameService {
     return gameRepository.get(gameMode, gameId);
   }
 
+  @Transactional
   public void processEnteredWord(String gameId, String word) {
     GameLogic gameLogic = gameRepository.get(gameMode, gameId);
     gameLogic.enterWord(word);

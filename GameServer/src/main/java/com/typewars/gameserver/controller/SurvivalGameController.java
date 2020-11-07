@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 public class SurvivalGameController implements GameController {
   private final SurvivalGameService survivalGameService;
 
-  @Autowired
   public SurvivalGameController(SurvivalGameService survivalGameService) {
     this.survivalGameService = survivalGameService;
   }
