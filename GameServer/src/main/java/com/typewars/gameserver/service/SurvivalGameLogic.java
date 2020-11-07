@@ -15,7 +15,7 @@ public class SurvivalGameLogic extends GameLogic {
   }
 
   @Override
-  protected synchronized void processEnteredWord(String enteredWord) {
+  protected void processEnteredWord(String enteredWord) {
     Iterator<Word> wordIterator = words.iterator();
 
     while (wordIterator.hasNext()) {
