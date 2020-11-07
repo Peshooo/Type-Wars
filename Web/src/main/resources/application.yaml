@@ -1,0 +1,5 @@
+game-server:
+  base-url: ${GAME_SERVER_URL}
+
+record-store:
+  base-url: ${RECORD_STORE_URL}
