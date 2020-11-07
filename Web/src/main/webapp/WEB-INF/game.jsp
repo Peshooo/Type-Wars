@@ -11,6 +11,7 @@
     <meta name="author" content="Petar Nyagolov">
     <meta name="keywords" content="typing,test,crazy,typer,game">
 
+  <link href="favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="styles/resetsheet.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
 
