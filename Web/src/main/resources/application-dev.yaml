@@ -1,5 +1,0 @@
-server:
-  port: 8080
-
-GAME_SERVER_URL: http://localhost:8081/
-RECORD_STORE_URL: http://localhost:8082/

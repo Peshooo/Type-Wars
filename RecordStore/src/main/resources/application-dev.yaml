@@ -1,7 +1,0 @@
-server:
-  port: 8082
-
-JDBC_URL: jdbc:postgresql://127.0.0.1:5432/typewars_records
-JDBC_USERNAME: root
-JDBC_PASSWORD: root
-JDBC_DRIVER_CLASS_NAME: org.postgresql.Driver

@@ -1,8 +1,0 @@
-game:
-  standard-mode:
-    name: standard
-  survival-mode:
-    name: survival
-
-record-store:
-  base-url: ${RECORD_STORE_URL}

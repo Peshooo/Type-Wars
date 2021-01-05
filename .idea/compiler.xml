@@ -6,15 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Web" />
         <module name="GameServer" />
+        <module name="Web" />
         <module name="RecordStore" />
+        <module name="Type-Wars" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="GameServer" target="1.8" />
       <module name="RecordStore" target="1.8" />
-      <module name="Type-Wars" target="1.8" />
+      <module name="Type-Wars" target="11" />
       <module name="Web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -22,6 +23,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="GameServer" options="-parameters" />
       <module name="RecordStore" options="-parameters" />
+      <module name="Type-Wars" options="-parameters" />
       <module name="Web" options="-parameters" />
     </option>
   </component>
