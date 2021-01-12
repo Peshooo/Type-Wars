@@ -7,21 +7,18 @@ game:
   survival-mode:
     name: survival
 
-JDBC_URL: jdbc:postgresql://typewarsrecords.csqdgugbejfe.eu-central-1.rds.amazonaws.com:5432/postgres
-JDBC_USERNAME: pesho420
-JDBC_PASSWORD: dagoduhat4engetata
-JDBC_DRIVER_CLASS_NAME: org.postgresql.Driver
+DB_DRIVER_CLASS_NAME: org.postgresql.Driver
 
 spring:
   datasource:
-    jdbc-url: ${JDBC_URL}
-    username: ${JDBC_USERNAME}
-    password: ${JDBC_PASSWORD}
-    driver-class-name: ${JDBC_DRIVER_CLASS_NAME}
+    jdbc-url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER_CLASS_NAME}
   flyway:
-    url: ${JDBC_URL}
-    user: ${JDBC_USERNAME}
-    password: ${JDBC_PASSWORD}
+    url: ${DB_URL}
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     baseline-on-migrate: true
 
 words:
