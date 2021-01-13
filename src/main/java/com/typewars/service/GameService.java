@@ -44,10 +44,12 @@ public abstract class GameService {
     }
 
     public void processEnteredWord(String gameId, String word) {
-        gamesManager.perform(gameId, (id, game) -> {
-            game.enterWord(word);
+        gamesManager.perform(gameId, (id, game) -> enterWord(game, word));
+    }
 
-            return game;
-        });
+    private Game enterWord(Game game, String word) {
+        game.enterWord(word);
+
+        return game;
     }
 }

@@ -32,17 +32,19 @@ public class GameLoopTimerTask extends TimerTask {
     @Override
     public void run() {
         try {
-            gamesManager.perform(gameId, (id, game) -> {
-                checkFinished(game);
-                checkExpired(game);
-
-                game.updateGame();
-
-                return game;
-            });
+            gamesManager.perform(gameId, (id, game) -> gameLoop(game));
         } catch (Exception e) {
             logger.error("Exception in thread run ", e);
         }
+    }
+
+    private Game gameLoop(Game game) {
+        checkFinished(game);
+        checkExpired(game);
+
+        game.updateGame();
+
+        return game;
     }
 
     private void checkFinished(Game game) {
