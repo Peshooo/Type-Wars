@@ -44,7 +44,7 @@
     </header>
 
     <script>
-        var gameId;
+        var gameId = "";
 
         function generateGameId() {
             let http = new XMLHttpRequest();
@@ -156,6 +156,9 @@
             }
 
             function getGameState() {
+                if (gameId.length != 36) {
+                    return;
+                }
                 let request = new XMLHttpRequest();
                 request.open('GET', <%=proxyUrl%> + gameId, true);
                 request.responseType = 'json';

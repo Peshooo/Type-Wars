@@ -49,7 +49,9 @@ public abstract class GameService {
     }
 
     private Game enterWord(Game game, String word) {
+        System.out.println("Performing enter word for game " + game.getMetadata().getId() + " and word " + word);
         game.enterWord(word);
+        System.out.println("Words are " + game.getWords().size());
 
         return game;
     }

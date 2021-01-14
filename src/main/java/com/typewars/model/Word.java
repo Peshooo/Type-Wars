@@ -1,6 +1,8 @@
 package com.typewars.model;
 
-public class Word {
+import java.io.Serializable;
+
+public class Word implements Serializable {
     private String word;
     private String color;
 

@@ -1,6 +1,8 @@
 package com.typewars.model;
 
-public class GameMetadata {
+import java.io.Serializable;
+
+public class GameMetadata implements Serializable {
     private String id;
     private String nickname;
     private long createdAt;

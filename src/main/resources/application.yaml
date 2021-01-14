@@ -1,5 +1,5 @@
 server:
-  port: 5000
+  port: 8080
 
 game:
   standard-mode:
@@ -8,6 +8,8 @@ game:
     name: survival
 
 DB_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+
 
 spring:
   datasource:

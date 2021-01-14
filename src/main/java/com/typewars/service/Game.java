@@ -1,14 +1,12 @@
 package com.typewars.service;
 
-import com.typewars.model.GameMetadata;
-import com.typewars.model.GameState;
-import com.typewars.model.GameStatus;
-import com.typewars.model.Word;
+import com.typewars.model.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Game {
+public abstract class Game implements Serializable {
     protected static final int ACTIVE_WORDS = 10;
     protected static final int CANVAS_WIDTH = 1200;
     protected static final int CANVAS_HEIGHT = 600;
@@ -19,8 +17,34 @@ public abstract class Game {
     private long lastTimeMillis;
     protected long timeLeftMillis;
     protected List<Word> words;
+    private final String gameMode;
 
-    public Game(String id, String nickname) {
+    public Game(RedisGame redisGame, String gameMode) {
+        metadata = new GameMetadata(redisGame.getId(), redisGame.getNickname(), redisGame.getCreatedAt());
+        status = redisGame.getStatus();
+        score = redisGame.getScore();
+        lastTimeMillis = redisGame.getLastTimeMillis();
+        timeLeftMillis = redisGame.getTimeLeftMillis();
+        words = redisGame.getWords();
+        this.gameMode = gameMode;
+    }
+
+    public synchronized RedisGame toRedisGame() {
+        RedisGame redisGame = new RedisGame();
+        redisGame.setId(metadata.getId());
+        redisGame.setNickname(metadata.getNickname());
+        redisGame.setCreatedAt(metadata.getCreatedAt());
+        redisGame.setStatus(status);
+        redisGame.setScore(score);
+        redisGame.setLastTimeMillis(lastTimeMillis);
+        redisGame.setTimeLeftMillis(timeLeftMillis);
+        redisGame.setWords(words);
+        redisGame.setGameMode(gameMode);
+
+        return redisGame;
+    }
+
+    public Game(String id, String nickname, String gameMode) {
         long createdAt = System.currentTimeMillis();
         metadata = new GameMetadata(id, nickname, createdAt);
         status = GameStatus.NOT_STARTED;
@@ -28,6 +52,13 @@ public abstract class Game {
         lastTimeMillis = createdAt;
         timeLeftMillis = getInitialTimeMillis();
         words = new ArrayList<>();
+        this.gameMode = gameMode;
+
+        refillWords();
+    }
+
+    public String getGameMode() {
+        return gameMode;
     }
 
     public GameState getGameState() {
@@ -66,6 +97,10 @@ public abstract class Game {
         processEnteredWord(enteredWord);
 
         refillWords();
+    }
+
+    public List<Word> getWords() {
+        return words;
     }
 
     protected abstract long getInitialTimeMillis();

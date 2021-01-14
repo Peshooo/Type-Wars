@@ -1,5 +1,6 @@
 package com.typewars.service;
 
+import com.typewars.model.RedisGame;
 import com.typewars.model.Word;
 
 import java.util.Iterator;
@@ -10,8 +11,12 @@ public class SurvivalGame extends Game {
     private static final long MAXIMUM_TIME_MILLIS = 10000;
     private static final long ADDITIONAL_MILLIS_PER_WORD = 1000;
 
+    public SurvivalGame(RedisGame redisGame) {
+        super(redisGame, "survival");
+    }
+
     public SurvivalGame(String id, String nickname) {
-        super(id, nickname);
+        super(id, nickname, "survival");
     }
 
     @Override
