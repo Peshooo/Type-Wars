@@ -1,6 +1,7 @@
 package com.typewars.service;
 
 import com.typewars.dao.StandardRecordsDao;
+import com.typewars.service.gamesmanager.GamesManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

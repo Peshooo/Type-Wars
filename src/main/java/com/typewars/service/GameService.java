@@ -2,6 +2,7 @@ package com.typewars.service;
 
 import com.typewars.dao.RecordsDao;
 import com.typewars.model.GameState;
+import com.typewars.service.gamesmanager.GamesManager;
 
 import java.util.Timer;
 import java.util.UUID;

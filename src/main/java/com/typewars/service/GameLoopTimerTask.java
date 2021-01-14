@@ -3,6 +3,7 @@ package com.typewars.service;
 import com.typewars.dao.RecordsDao;
 import com.typewars.model.GameRecord;
 import com.typewars.model.GameStatus;
+import com.typewars.service.gamesmanager.GamesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
