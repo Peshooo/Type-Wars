@@ -6,6 +6,7 @@ import com.typewars.service.gamesmanager.GamesManager;
 
 import java.util.Timer;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public abstract class GameService {
     private static final long GAME_LOOP_PERIOD_MILLIS = 32;
@@ -45,7 +46,7 @@ public abstract class GameService {
     }
 
     public void processEnteredWord(String gameId, String word) {
-        gamesManager.perform(gameId, (id, game) -> enterWord(game, word));
+        CompletableFuture.runAsync(() -> gamesManager.perform(gameId, (id, game) -> enterWord(game, word)));
     }
 
     private Game enterWord(Game game, String word) {

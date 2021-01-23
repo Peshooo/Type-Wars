@@ -10,6 +10,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
@@ -50,6 +51,7 @@ public class RedisGamesManager implements GamesManager {
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void perform(String gameId, BiFunction<String, Game, Game> operation) {
         HashOperations<String, String, RedisGame> hashOperations = redisTemplate.opsForHash();
         RedisGame redisGame = hashOperations.get(HASH_NAME, gameId);

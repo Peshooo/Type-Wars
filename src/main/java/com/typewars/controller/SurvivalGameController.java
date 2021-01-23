@@ -36,6 +36,7 @@ public class SurvivalGameController implements GameController {
 
     @Override
     @PutMapping("/{gameId}")
+    @ResponseBody
     public void processEnteredWord(@PathVariable String gameId, @RequestParam String word) {
         survivalGameService.processEnteredWord(gameId, word);
     }
