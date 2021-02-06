@@ -39,11 +39,6 @@ public abstract class GameService {
 
     protected abstract Game createGame(String gameId, String nickname);
 
-    private void startGameLoop(String gameId) {
-        Timer gameLoopTimer = new Timer();
-        gameLoopTimer.scheduleAtFixedRate(new GameLoopTimerTask(gameMode, gameId, gamesManager, recordsDao), 0, GAME_LOOP_PERIOD_MILLIS);
-    }
-
     public GameState getGameState(String gameId) {
         return gamesManager.perform(gameId, (id, game) -> updateGame(game)).getGameState();
     }

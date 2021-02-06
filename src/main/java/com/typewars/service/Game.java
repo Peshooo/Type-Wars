@@ -134,8 +134,6 @@ public abstract class Game implements Serializable {
         timeLeftMillis -= (currentTimeMillis - lastTimeMillis);
         lastTimeMillis = currentTimeMillis;
 
-        System.out.println("Current time " + currentTimeMillis + " last time " + lastTimeMillis + " time left " + timeLeftMillis);
-
         finishGameIfNoTimeLeft();
     }
 
