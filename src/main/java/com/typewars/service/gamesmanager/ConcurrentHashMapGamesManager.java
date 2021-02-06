@@ -32,7 +32,7 @@ public class ConcurrentHashMapGamesManager implements GamesManager {
     }
 
     @Override
-    public void perform(String gameId, BiFunction<String, Game, Game> operation) {
-        games.compute(gameId, operation);
+    public Game perform(String gameId, BiFunction<String, Game, Game> operation) {
+        return games.compute(gameId, operation);
     }
 }

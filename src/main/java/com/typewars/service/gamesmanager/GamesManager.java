@@ -11,5 +11,5 @@ public interface GamesManager {
 
     void delete(String gameId);
 
-    void perform(String gameId, BiFunction<String, Game, Game> operation);
+    Game perform(String gameId, BiFunction<String, Game, Game> operation);
 }

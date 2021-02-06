@@ -111,7 +111,7 @@ public abstract class Game implements Serializable {
         words.forEach(Word::move);
         words.removeIf(this::notOnCanvas);
         refillWords();
-        updateTimeIfRunning();
+        updateTimeIfRunning(); //TODO: Synchronize that with the last time moved in the Word class.
     }
 
     private boolean notOnCanvas(Word word) {
@@ -133,6 +133,8 @@ public abstract class Game implements Serializable {
         long currentTimeMillis = System.currentTimeMillis();
         timeLeftMillis -= (currentTimeMillis - lastTimeMillis);
         lastTimeMillis = currentTimeMillis;
+
+        System.out.println("Current time " + currentTimeMillis + " last time " + lastTimeMillis + " time left " + timeLeftMillis);
 
         finishGameIfNoTimeLeft();
     }

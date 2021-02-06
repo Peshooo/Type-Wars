@@ -1,9 +1,12 @@
 package com.typewars.service;
 
 import com.typewars.dao.RecordsDao;
+import com.typewars.model.GameRecord;
 import com.typewars.model.GameState;
+import com.typewars.model.GameStatus;
 import com.typewars.service.gamesmanager.GamesManager;
 
+import java.time.OffsetDateTime;
 import java.util.Timer;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -25,7 +28,7 @@ public abstract class GameService {
         String gameId = generateUuid();
         Game game = createGame(gameId, nickname);
         gamesManager.save(game);
-        startGameLoop(gameId);
+        //startGameLoop(gameId);
 
         return gameId;
     }
@@ -42,7 +45,34 @@ public abstract class GameService {
     }
 
     public GameState getGameState(String gameId) {
-        return gamesManager.get(gameId).getGameState();
+        return gamesManager.perform(gameId, (id, game) -> updateGame(game)).getGameState();
+    }
+
+    private Game updateGame(Game game) {
+        checkExpired(game);
+
+        game.updateGame();
+
+        checkFinished(game);
+
+        return game;
+    }
+
+    private void checkFinished(Game game) {
+        if (game.getStatus() == GameStatus.FINISHED) {
+            afterGameFinished(game);
+        }
+    }
+
+    private void checkExpired(Game game) {
+        //TODO: Figure out delete of hung games
+    }
+
+    private void afterGameFinished(Game game) {
+        GameRecord gameRecord =
+                new GameRecord(game.getMetadata().getId(), game.getMetadata().getNickname(), game.getScore(), OffsetDateTime.now());
+        recordsDao.save(gameRecord);
+        gamesManager.delete(game.getMetadata().getId());
     }
 
     public void processEnteredWord(String gameId, String word) {
@@ -50,9 +80,7 @@ public abstract class GameService {
     }
 
     private Game enterWord(Game game, String word) {
-        System.out.println("Performing enter word for game " + game.getMetadata().getId() + " and word " + word);
         game.enterWord(word);
-        System.out.println("Words are " + game.getWords().size());
 
         return game;
     }
