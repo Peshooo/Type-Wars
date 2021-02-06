@@ -56,12 +56,12 @@
             http.send();
         }
 
+        var lastTypedWord = "";
         generateGameId();
     </script>
 
     <script>
         function resetGame() {
-            clearInterval(renderInterval);
             clearInterval(getGameStateInterval);
             generateGameId();
             startIntervals();
@@ -94,18 +94,20 @@
             var timer = document.getElementById("timer");
             var score = document.getElementById("score");
             var getGameStateInterval;
-            var renderInterval;
 
             userInput.onkeydown = function(event) {
               if(event.keyCode==13 || event.keyCode==32 || event.which==13 || event.which==32) {
                 event.preventDefault();
 
                 let word = userInput.value;
+                lastTypedWord = word;
                 userInput.value = "";
 
                 let request = new XMLHttpRequest();
                 request.open('PUT', <%=proxyUrl%> + gameId + "?word=" + word, true);
                 request.send();
+
+                lastTypedWord = "";
               }
             }
 
@@ -123,7 +125,11 @@
             }
 
             function drawWord(word) {
-                drawStrokedRectangle(word.x, word.y, word.width, word.height, word.color, "white");
+                if (word == lastTypedWord) {
+                    drawStrokedRectangle(word.x, word.y, word.width, word.height, word.color, "green");
+                } else {
+                    drawStrokedRectangle(word.x, word.y, word.width, word.height, word.color, "white");
+                }
 
                 ctx.fillStyle = "black";
                 ctx.font = "50px arial";
@@ -172,7 +178,6 @@
                         }
 
                         if (gameState.status == 'FINISHED') {
-                            clearInterval(renderInterval);
                             drawScore(gameState.score);
                             clearInterval(getGameStateInterval);
                             return;
@@ -194,9 +199,12 @@
                                     wordsList[i].color,
                                     wordsList[i].position.x, wordsList[i].position.y,
                                     wordsList[i].size.width, wordsList[i].size.height,
-                                    wordsList[i].velocity.x, wordsList[i].velocity.y));
+                                    wordsList[i].velocity.x, wordsList[i].velocity.y,
+                                    "white"));
                         }
                     }
+
+                    render();
                 }
 
                 request.send(gameId);
@@ -204,7 +212,6 @@
 
             function startIntervals() {
                 getGameStateInterval = setInterval(getGameState, 32);
-                renderInterval = setInterval(render, 32);
             }
 
             startIntervals();
