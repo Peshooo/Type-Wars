@@ -8,7 +8,7 @@ public class WordProvider {
     private static final Random random = new Random();
 
     public static String getWord() {
-        int wordIndex =random.nextInt(WORDS.size());
+        int wordIndex = random.nextInt(WORDS.size());
         
         return WORDS.get(wordIndex);
     }
