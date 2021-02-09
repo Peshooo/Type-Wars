@@ -1,4 +1,4 @@
-package com.typewars.service;
+package com.typewars.service.util;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +9,7 @@ public class WordProvider {
 
     public static String getWord() {
         int wordIndex = random.nextInt(WORDS.size());
-        
+
         return WORDS.get(wordIndex);
     }
 

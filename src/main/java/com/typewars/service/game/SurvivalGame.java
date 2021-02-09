@@ -1,4 +1,4 @@
-package com.typewars.service;
+package com.typewars.service.game;
 
 import com.typewars.model.RedisGame;
 import com.typewars.model.Word;

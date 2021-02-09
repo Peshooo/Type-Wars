@@ -1,6 +1,7 @@
-package com.typewars.service;
+package com.typewars.service.game;
 
 import com.typewars.model.*;
+import com.typewars.service.util.WordFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -108,10 +109,14 @@ public abstract class Game implements Serializable {
     protected abstract void processEnteredWord(String enteredWord);
 
     public void updateGame() {
+        if (status == GameStatus.FINISHED) {
+            return;
+        }
+
         words.forEach(Word::move);
         words.removeIf(this::notOnCanvas);
         refillWords();
-        updateTimeIfRunning(); //TODO: Synchronize that with the last time moved in the Word class.
+        updateTimeIfRunning();
     }
 
     private boolean notOnCanvas(Word word) {

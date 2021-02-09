@@ -3,7 +3,7 @@ package com.typewars.controller;
 
 import com.typewars.model.CreateGameResponse;
 import com.typewars.model.GameState;
-import com.typewars.service.SurvivalGameService;
+import com.typewars.service.game.SurvivalGameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

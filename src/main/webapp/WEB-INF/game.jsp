@@ -153,6 +153,8 @@
                 timer.innerHTML = 0;
             }
 
+            var rememberedScore;
+
             function render() {
                 drawRectangle(0, 0, canvas.width, canvas.height, "black");
 
@@ -173,12 +175,16 @@
                         let gameState = request.response;
 
                         if (gameState == null) {
-                            document.getElementById("resetButton").click();
+                            drawScore(rememberedScore);
+                            clearInterval(getGameStateInterval);
                             return;
+                            //document.getElementById("resetButton").click();
+                            //return;
                         }
 
                         if (gameState.status == 'FINISHED') {
-                            drawScore(gameState.score);
+                            rememberedScore = gameState.score
+                            drawScore(rememberedScore);
                             clearInterval(getGameStateInterval);
                             return;
                         } else {

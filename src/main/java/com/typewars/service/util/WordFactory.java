@@ -1,4 +1,4 @@
-package com.typewars.service;
+package com.typewars.service.util;
 
 import com.typewars.model.Position;
 import com.typewars.model.Size;

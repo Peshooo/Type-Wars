@@ -1,6 +1,6 @@
 package com.typewars.service.gamesmanager;
 
-import com.typewars.service.Game;
+import com.typewars.service.game.Game;
 
 import java.util.function.BiFunction;
 
