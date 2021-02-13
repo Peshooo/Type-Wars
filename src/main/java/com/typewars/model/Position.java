@@ -3,32 +3,27 @@ package com.typewars.model;
 import java.io.Serializable;
 
 public class Position implements Serializable {
-    private float x;
-    private float y;
+    private int x;
+    private int y;
 
     public Position() {
     }
 
-    public Position(float x, float y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public float getX() {
+    public int getX() {
         return x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
     public void move(Position delta) {
         x += delta.getX();
         y += delta.getY();
-    }
-
-    public void move(Position delta, float factor) {
-        x += delta.getX() * factor;
-        y += delta.getY() * factor;
     }
 }

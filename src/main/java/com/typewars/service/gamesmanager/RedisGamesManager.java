@@ -52,7 +52,7 @@ public class RedisGamesManager implements GamesManager {
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Game perform(String gameId, BiFunction<String, Game, Game> operation) {
+    public void perform(String gameId, BiFunction<String, Game, Game> operation) {
         HashOperations<String, String, RedisGame> hashOperations = redisTemplate.opsForHash();
         RedisGame redisGame = hashOperations.get(HASH_NAME, gameId);
 
@@ -60,10 +60,6 @@ public class RedisGamesManager implements GamesManager {
             Game game = redisGame.getGameMode().equals("survival") ? new SurvivalGame(redisGame) : new StandardGame(redisGame);
             game = operation.apply(gameId, game);
             hashOperations.put(HASH_NAME, redisGame.getId(), game.toRedisGame());
-
-            return game;
         }
-
-        return null;
     }
 }

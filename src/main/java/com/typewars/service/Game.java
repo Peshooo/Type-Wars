@@ -107,13 +107,11 @@ public abstract class Game implements Serializable {
 
     protected abstract void processEnteredWord(String enteredWord);
 
-    public Game updateGame() {
+    public void updateGame() {
         words.forEach(Word::move);
         words.removeIf(this::notOnCanvas);
         refillWords();
         updateTimeIfRunning();
-
-        return this;
     }
 
     private boolean notOnCanvas(Word word) {
