@@ -1,6 +1,6 @@
 package com.typewars.service.gamesmanager;
 
-import com.typewars.service.Game;
+import com.typewars.service.game.Game;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class ConcurrentHashMapGamesManager implements GamesManager {
     }
 
     @Override
-    public void perform(String gameId, BiFunction<String, Game, Game> operation) {
-        games.compute(gameId, operation);
+    public Game perform(String gameId, BiFunction<String, Game, Game> operation) {
+        return games.compute(gameId, operation);
     }
 }

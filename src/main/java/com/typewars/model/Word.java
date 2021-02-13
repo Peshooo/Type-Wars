@@ -3,6 +3,10 @@ package com.typewars.model;
 import java.io.Serializable;
 
 public class Word implements Serializable {
+    private static final float MOVE_RATE_MILLIS = 32;
+
+    private long lastMoveTimestamp;
+
     private String word;
     private String color;
 
@@ -12,10 +16,12 @@ public class Word implements Serializable {
     private Position velocity;
 
     public Word() {
+        lastMoveTimestamp = System.currentTimeMillis();
     }
 
     public Word(String word) {
         this.word = word;
+        lastMoveTimestamp = System.currentTimeMillis();
     }
 
     public String getWord() {
@@ -59,6 +65,14 @@ public class Word implements Serializable {
     }
 
     public void move() {
-        position.move(velocity);
+        long currentTimestamp = System.currentTimeMillis();
+        long timeDifferenceMillis = currentTimestamp - lastMoveTimestamp;
+        float factor = calculateVelocityScaleFactor(timeDifferenceMillis);
+        position.move(velocity.scaled(factor));
+        lastMoveTimestamp = System.currentTimeMillis();
+    }
+
+    private float calculateVelocityScaleFactor(long timeDifferenceMillis) {
+        return timeDifferenceMillis / MOVE_RATE_MILLIS;
     }
 }

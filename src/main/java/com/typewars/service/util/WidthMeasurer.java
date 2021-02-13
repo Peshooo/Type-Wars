@@ -1,4 +1,4 @@
-package com.typewars.service;
+package com.typewars.service.util;
 
 import com.google.common.collect.ImmutableMap;
 

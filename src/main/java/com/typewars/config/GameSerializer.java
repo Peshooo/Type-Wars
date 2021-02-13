@@ -1,6 +1,6 @@
 package com.typewars.config;
 
-import com.typewars.service.Game;
+import com.typewars.service.game.Game;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
