@@ -18,4 +18,4 @@ And from the project's directory:
 
 `mvn spring-boot:run -Dspring-boot.run.profiles=dev,redis`
 
-Then open `http://localhost:5000/` and enjoy.
+Then open `http://localhost:8080/` and enjoy.
