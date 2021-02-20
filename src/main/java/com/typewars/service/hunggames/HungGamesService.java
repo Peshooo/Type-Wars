@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.annotation.PreDestroy;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +32,11 @@ public class HungGamesService {
 
     public void markAsRecentlyPolled(String gameId) {
         s3.add(gameId);
+    }
+
+    @PreDestroy
+    private void onShutdown() {
+        advance();
     }
 
     @Scheduled(fixedRate = 60000)
