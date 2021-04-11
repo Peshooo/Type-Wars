@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.typewars.dao.StandardRecordsDao;
 import com.typewars.dao.SurvivalRecordsDao;
 import com.typewars.model.GameRecord;
+import com.typewars.service.notifications.NotificationsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,10 +18,12 @@ import java.util.Map;
 public class WebController {
     private final StandardRecordsDao standardRecordsDao;
     private final SurvivalRecordsDao survivalRecordsDao;
+    private final NotificationsService notificationsService;
 
-    public WebController(StandardRecordsDao standardRecordsDao, SurvivalRecordsDao survivalRecordsDao) {
+    public WebController(StandardRecordsDao standardRecordsDao, SurvivalRecordsDao survivalRecordsDao, NotificationsService notificationsService) {
         this.standardRecordsDao = standardRecordsDao;
         this.survivalRecordsDao = survivalRecordsDao;
+        this.notificationsService = notificationsService;
     }
 
     @RequestMapping("/")
@@ -32,6 +35,8 @@ public class WebController {
                 ImmutableMap.<String, Object>builder()
                         .put("standardRecords", standardTopFive)
                         .put("survivalRecords", survivalTopFive)
+                        .put("notifications", notificationsService.getNotifications().getMessages())
+                        .put("notificationsAll", notificationsService.getNotifications().getAll())
                         .build();
 
         return new ModelAndView("index", context);
@@ -42,6 +47,8 @@ public class WebController {
         Map<String, Object> context =
                 ImmutableMap.<String, Object>builder()
                         .put("gameMode", "standard")
+                        .put("notifications", notificationsService.getNotifications().getMessages())
+                        .put("notificationsAll", notificationsService.getNotifications().getAll())
                         .build();
 
         return new ModelAndView("game", context);
@@ -52,6 +59,8 @@ public class WebController {
         Map<String, Object> context =
                 ImmutableMap.<String, Object>builder()
                         .put("gameMode", "survival")
+                        .put("notifications", notificationsService.getNotifications().getMessages())
+                        .put("notificationsAll", notificationsService.getNotifications().getAll())
                         .build();
 
         return new ModelAndView("game", context);

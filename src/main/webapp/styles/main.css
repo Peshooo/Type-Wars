@@ -5,10 +5,13 @@ header {
 
   padding-top: 1%;
   padding-bottom: 1%;
+
+  vertical-align: middle;
 }
 
 header div {
   display: inline-block;
+  vertical-align: middle;
 }
 
 header h1 {
@@ -262,4 +265,39 @@ table caption {
   padding-bottom: 0.4vw;
   float: left;
   margin-left: 0.5%;
+}
+
+.notifications-div {
+    display: inline-block;
+    border: 0.2vw solid white;
+    border-radius: 0.5vw;
+    background-color: rgba(16, 16, 16, 0.3);
+    height: 13vh;
+    width: 15vw;
+}
+
+.notifications-div-header {
+    padding-top: 0.5vh;
+    display: inline-block;
+    height: 3vh;
+    width: 100%;
+    background-color: rgba(16, 16, 16, 0.3);
+}
+
+.notifications-div-text {
+    display: inline-block;
+    height: 7vh;
+    width: 100%;
+    background-color: rgba(16, 16, 16, 0.3);
+}
+
+.notifications-div-text p {
+    font: 0.8vw arial;
+}
+
+.notifications-div-pages {
+    display: inline-block;
+    height: 2vh;
+    width: 100%;
+    background-color: rgba(16, 16, 16, 0.3);
 }

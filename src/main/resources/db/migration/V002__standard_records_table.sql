@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS standard_records (
     created_at TIMESTAMP NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS standard_score_index ON standard_records (score);
+CREATE INDEX IF NOT EXISTS standard_created_at_score_index ON standard_records (created_at, score);

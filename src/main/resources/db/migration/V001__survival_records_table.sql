@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS survival_records (
     created_at TIMESTAMP NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS survival_score_index ON survival_records (score);
+CREATE INDEX IF NOT EXISTS survival_created_at_score_index ON survival_records (created_at, score);

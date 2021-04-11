@@ -3,7 +3,8 @@
 <%@ page import="com.typewars.model.GameRecord" %>
 <% List<GameRecord> standardRecords = (List) request.getAttribute("standardRecords"); %>
 <% List<GameRecord> survivalRecords = (List) request.getAttribute("survivalRecords"); %>
-
+<% List<String> notifications = (List) request.getAttribute("notifications"); %>
+<% String notificationsAll = (String) request.getAttribute("notificationsAll"); %>
 <!doctype html>
 <html>
 <head>
@@ -20,6 +21,44 @@
 </head>
 
 <body style="background: url(images/background.jpg) 100% 100%;">
+    <script>
+        let allNotifications = 0;
+        let currentNotification = 0;
+        let notificationsJs = new Array(<%=notificationsAll%>);
+
+        function updateNotifications() {
+            document.getElementById("notifications-pages").innerHTML =
+                '<a style="cursor: pointer" onclick="previousPage();">⬅</a> ' + currentNotification + ' / ' + allNotifications + ' <a style="cursor: pointer" onclick="nextPage();">➡</a>';
+
+            if (currentNotification != 0) {
+                document.getElementById("notifications-text").innerHTML = notificationsJs[currentNotification - 1];
+            }
+        }
+
+        function previousPage() {
+            if (currentNotification <= 1) {
+                return;
+            }
+
+            --currentNotification;
+            updateNotifications()
+        }
+
+        function nextPage() {
+            if (currentNotification >= allNotifications) {
+                return;
+            }
+
+            ++currentNotification;
+            updateNotifications()
+        }
+        
+        window.onload = function() {
+            allNotifications = <%=notifications.size()%>;
+            currentNotification = allNotifications == 0 ? 0 : 1;
+            updateNotifications();
+        }
+    </script>
     <header>
         <div style = "width: 25vw;">
             <p>Nickname: <%= request.getSession().getAttribute("nickname") %></p>
@@ -30,13 +69,24 @@
             <h1 style="cursor: pointer" onclick="window.location.href = '/'"><strong>Type Wars</strong></h1>
         </div>
 
-        <div style="width: 25vw;">
+        <div style="width: 23vw;">
+            <div class="notifications-div">
+                <div class="notifications-div-header">
+                    <p style="text-align: center;">Notifications</p>
+                </div>
+                <div class="notifications-div-text">
+                    <p id="notifications-text" style="text-align: center;">No notifications.</p>
+                </div>
+                <div class="notifications-div-pages">
+                    <p id="notifications-pages" style="text-align: center;"></p>
+                </div>
+            </div>
         </div>
     </header>
 
     <div id="menuContainer">
-        <div class="table-button" id="standardContainer">
-            <table class = "results-table" style = "width: 100%" align = "center">
+        <div id="standardContainer">
+            <table style = "width: 100%" align = "center">
                 <caption>TOP 5 STANDARD RESULTS (last 24 hours)</caption>
                 <tr>
                     <th>#</th>
@@ -73,8 +123,8 @@
             <button class="play-button" onclick="window.location.href='standard'" title="You have 60 seconds to type words you see on the screen. Your score is the total number of letters in the words you type correctly.">Standard</button>
         </div>
 
-        <div class="table-button" id="survivalContainer">
-            <table class = "results-table" style = "width: 100%" align = "center">
+        <div id="survivalContainer">
+            <table style = "width: 100%" align = "center">
                 <caption>TOP 5 SURVIVAL RESULTS (last 24 hours)</caption>
                 <tr>
                     <th>#</th>

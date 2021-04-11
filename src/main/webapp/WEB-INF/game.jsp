@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.List" %>
 <% String gameMode = (String) request.getAttribute("gameMode"); %>
 <% String proxyUrl = "\"" + "/game/" + gameMode + "/" + "\""; %>
+<% List<String> notifications = (List) request.getAttribute("notifications"); %>
+<% String notificationsAll = (String) request.getAttribute("notificationsAll"); %>
 <!doctype html>
 <html>
 <head>
@@ -17,13 +20,49 @@
 
 
     <script>
-        window.onload = focusUserInput;
+        let allNotifications = 0;
+        let currentNotification = 0;
+        let notificationsJs = new Array(<%=notificationsAll%>);
+
+        function updateNotifications() {
+            document.getElementById("notifications-pages").innerHTML =
+                '<a style="cursor: pointer" onclick="previousPage();">⬅</a> ' + currentNotification + ' / ' + allNotifications + ' <a style="cursor: pointer" onclick="nextPage();">➡</a>';
+
+            if (currentNotification != 0) {
+                document.getElementById("notifications-text").innerHTML = notificationsJs[currentNotification - 1];
+            }
+        }
+
+        function previousPage() {
+            if (currentNotification <= 1) {
+                return;
+            }
+
+            --currentNotification;
+            updateNotifications()
+        }
+
+        function nextPage() {
+            if (currentNotification >= allNotifications) {
+                return;
+            }
+
+            ++currentNotification;
+            updateNotifications()
+        }
 
         function focusUserInput() {
             document.getElementById("userInput").focus();
         }
 
-        window.onload = focusUserInput;
+        function windowOnload() {
+            allNotifications = <%=notifications.size()%>;
+            currentNotification = allNotifications == 0 ? 0 : 1;
+            updateNotifications();
+            focusUserInput();
+        }
+
+        window.onload = windowOnload;
     </script>
     <script src="scripts/word_t.js"></script>
 </head>
@@ -39,7 +78,18 @@
             <h1 style="cursor: pointer" onclick="window.location.href = '/'"><strong>Type Wars</strong></h1>
         </div>
 
-        <div style="width: 25vw;">
+        <div style="width: 23vw;">
+            <div class="notifications-div">
+                <div class="notifications-div-header">
+                    <p style="text-align: center;">Notifications</p>
+                </div>
+                <div class="notifications-div-text">
+                    <p id="notifications-text" style="text-align: center;">No notifications.</p>
+                </div>
+                <div class="notifications-div-pages">
+                    <p id="notifications-pages" style="text-align: center;"></p>
+                </div>
+            </div>
         </div>
     </header>
 
