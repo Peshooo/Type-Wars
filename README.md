@@ -6,16 +6,12 @@ First, start a postgres instance:
 
 `docker run -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root postgres`
 
-To run it without any other external dependencies, use this from the project directory:
-
-`mvn spring-boot:run -Dspring-boot.run.profiles=dev`
-
-There is an option to store the states of the games in Redis, so to use that option, from another tab run:
+Then start redis:
 
 `docker run -p 6379:6379 redis`
 
 And from the project's directory:
 
-`mvn spring-boot:run -Dspring-boot.run.profiles=dev,redis`
+`mvn spring-boot:run -Dspring-boot.run.profiles=dev`
 
 Then open `http://localhost:8080/` and enjoy.

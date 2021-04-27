@@ -2,7 +2,11 @@ package com.typewars.service.util;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class WordProvider {
     private static final Random random = new Random();
@@ -11,6 +15,14 @@ public class WordProvider {
         int wordIndex = random.nextInt(WORDS.size());
 
         return WORDS.get(wordIndex);
+    }
+
+    public static String getWord(int id) {
+        return WORDS.get(id);
+    }
+
+    public static int getId(String word) {
+        return WORD_TO_ID.get(word);
     }
 
     private static final List<String> WORDS = Arrays.asList(
@@ -81,4 +93,9 @@ public class WordProvider {
             "whole", "whom", "whose", "why", "wide", "wife", "will", "win", "wind", "window", "wish", "with", "within", "without", "woman", "wonder", "word", "work",
             "worker", "world", "worry", "would", "write", "writer", "wrong", "yard", "yeah", "year", "yes", "yet", "you", "young", "your", "yourself"
     );
+
+    private static final Map<String, Integer> WORD_TO_ID =
+            IntStream.range(0, WORDS.size())
+                    .boxed()
+                    .collect(Collectors.toMap(WORDS::get, Function.identity()));
 }

@@ -4,25 +4,21 @@ import com.typewars.model.GameState;
 import com.typewars.model.GameStatus;
 import com.typewars.service.finishedgames.FinishedGamesService;
 import com.typewars.service.gamesmanager.GamesManager;
-import com.typewars.service.hunggames.HungGamesService;
 
 import java.util.UUID;
 
 public abstract class GameService {
     private final GamesManager gamesManager;
     private final FinishedGamesService finishedGamesService;
-    private final HungGamesService hungGamesService;
 
-    public GameService(GamesManager gamesManager, FinishedGamesService finishedGamesService, HungGamesService hungGamesService) {
+    public GameService(GamesManager gamesManager, FinishedGamesService finishedGamesService) {
         this.gamesManager = gamesManager;
         this.finishedGamesService = finishedGamesService;
-        this.hungGamesService = hungGamesService;
     }
 
     public String createGame(String nickname) {
         String gameId = generateUuid();
         Game game = createGame(gameId, nickname);
-        hungGamesService.markAsRecentlyPolled(gameId);
         gamesManager.save(game);
 
         return gameId;
@@ -36,7 +32,6 @@ public abstract class GameService {
 
     public GameState getGameState(String gameId) {
         try {
-            hungGamesService.markAsRecentlyPolled(gameId);
             return gamesManager.perform(gameId, this::updateGame).getGameState();
         } catch (Throwable e) {
             return null;
