@@ -15,12 +15,6 @@ public class NotificationEntity {
         this.createdAt = createdAt;
     }
 
-    public NotificationEntity(Long id, String message, OffsetDateTime createdAt) {
-        this.id = id;
-        this.message = message;
-        this.createdAt = createdAt;
-    }
-
     public Long getId() {
         return id;
     }

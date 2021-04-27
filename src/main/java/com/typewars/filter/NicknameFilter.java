@@ -1,6 +1,7 @@
 package com.typewars.filter;
 
 import com.google.common.collect.ImmutableList;
+import com.typewars.service.stats.DailyCountersService;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static com.typewars.model.DailyCountersKeys.NICKNAME_SET;
+
 @Component
 public class NicknameFilter implements Filter {
     private static final int MAXIMUM_NICKNAME_LENGTH = 30;
@@ -17,6 +20,12 @@ public class NicknameFilter implements Filter {
 
     private static final String NICKNAME = "nickname";
     private static final List<String> PATHS_TO_SKIP = ImmutableList.of(NICKNAME, "images", "files", "scripts", "styles", "WEB-INF", "notifications");
+
+    private final DailyCountersService dailyCountersService;
+
+    public NicknameFilter(DailyCountersService dailyCountersService) {
+        this.dailyCountersService = dailyCountersService;
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,6 +44,7 @@ public class NicknameFilter implements Filter {
             String nickname = request.getParameter(NICKNAME);
 
             if (isValidNickname(nickname)) {
+                dailyCountersService.count(NICKNAME_SET);
                 request.getSession().setAttribute(NICKNAME, nickname);
                 request.getRequestDispatcher("/").forward(request, response);
             } else {

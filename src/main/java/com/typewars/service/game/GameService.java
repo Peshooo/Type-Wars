@@ -1,5 +1,6 @@
 package com.typewars.service.game;
 
+import com.typewars.aspect.DailyCounter;
 import com.typewars.model.GameState;
 import com.typewars.model.GameStatus;
 import com.typewars.service.finishedgames.FinishedGamesService;
