@@ -8,10 +8,6 @@ public class SerializableDummyObject implements Serializable {
     private SerializableDummyObject() {
     }
 
-    public Integer getZero() {
-        return 0;
-    }
-
     public static SerializableDummyObject getInstance() {
         return instance;
     }
