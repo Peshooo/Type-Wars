@@ -5,8 +5,9 @@ import com.typewars.model.SerializableDummyObject;
 import com.typewars.service.game.Game;
 import com.typewars.service.game.StandardGame;
 import com.typewars.service.game.SurvivalGame;
-import org.springframework.context.annotation.Profile;
-import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.BoundValueOperations;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;

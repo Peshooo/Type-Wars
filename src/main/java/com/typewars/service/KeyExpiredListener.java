@@ -1,7 +1,5 @@
 package com.typewars.service;
 
-import com.typewars.model.GameRecord;
-import com.typewars.model.RedisGame;
 import com.typewars.service.finishedgames.FinishedStandardGamesService;
 import com.typewars.service.finishedgames.FinishedSurvivalGamesService;
 import com.typewars.service.game.Game;
@@ -9,13 +7,10 @@ import com.typewars.service.gamesmanager.GamesManager;
 import com.typewars.service.gamesmanager.RedisGamesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Service;
-
-import java.time.OffsetDateTime;
 
 @Service
 public class KeyExpiredListener extends KeyExpirationEventMessageListener {

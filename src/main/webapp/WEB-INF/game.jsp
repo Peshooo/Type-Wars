@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <% String gameMode = (String) request.getAttribute("gameMode"); %>
 <% String proxyUrl = "\"" + "/game/" + gameMode + "/" + "\""; %>
-<% List<String> notifications = (List) request.getAttribute("notifications"); %>
+<% Integer notificationsCount = (Integer) request.getAttribute("notificationsCount"); %>
 <% String notificationsAll = (String) request.getAttribute("notificationsAll"); %>
 <!doctype html>
 <html>
@@ -56,7 +56,7 @@
         }
 
         function windowOnload() {
-            allNotifications = <%=notifications.size()%>;
+            allNotifications = <%=notificationsCount%>;
             currentNotification = allNotifications == 0 ? 0 : 1;
             updateNotifications();
             focusUserInput();

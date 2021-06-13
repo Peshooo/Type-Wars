@@ -9,8 +9,6 @@ game:
 
 DB_DRIVER_CLASS_NAME: org.postgresql.Driver
 
-
-
 spring:
   datasource:
     jdbc-url: ${DB_URL}

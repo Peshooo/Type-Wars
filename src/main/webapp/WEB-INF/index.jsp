@@ -3,7 +3,7 @@
 <%@ page import="com.typewars.model.GameRecord" %>
 <% List<GameRecord> standardRecords = (List) request.getAttribute("standardRecords"); %>
 <% List<GameRecord> survivalRecords = (List) request.getAttribute("survivalRecords"); %>
-<% List<String> notifications = (List) request.getAttribute("notifications"); %>
+<% Integer notificationsCount = (Integer) request.getAttribute("notificationsCount"); %>
 <% String notificationsAll = (String) request.getAttribute("notificationsAll"); %>
 <!doctype html>
 <html>
@@ -54,7 +54,7 @@
         }
         
         window.onload = function() {
-            allNotifications = <%=notifications.size()%>;
+            allNotifications = <%=notificationsCount%>;
             currentNotification = allNotifications == 0 ? 0 : 1;
             updateNotifications();
         }

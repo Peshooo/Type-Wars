@@ -37,7 +37,7 @@ public class WebController {
                 ImmutableMap.<String, Object>builder()
                         .put("standardRecords", standardTopFive)
                         .put("survivalRecords", survivalTopFive)
-                        .put("notifications", notificationsService.getNotifications().getMessages())
+                        .put("notificationsCount", notificationsService.getNotifications().getMessages().size())
                         .put("notificationsAll", notificationsService.getNotifications().getAll())
                         .build();
 
@@ -50,7 +50,7 @@ public class WebController {
         Map<String, Object> context =
                 ImmutableMap.<String, Object>builder()
                         .put("gameMode", "standard")
-                        .put("notifications", notificationsService.getNotifications().getMessages())
+                        .put("notificationsCount", notificationsService.getNotifications().getMessages().size())
                         .put("notificationsAll", notificationsService.getNotifications().getAll())
                         .build();
 
@@ -63,6 +63,7 @@ public class WebController {
         Map<String, Object> context =
                 ImmutableMap.<String, Object>builder()
                         .put("gameMode", "survival")
+                        .put("notificationsCount", notificationsService.getNotifications().getMessages().size())
                         .put("notifications", notificationsService.getNotifications().getMessages())
                         .put("notificationsAll", notificationsService.getNotifications().getAll())
                         .build();

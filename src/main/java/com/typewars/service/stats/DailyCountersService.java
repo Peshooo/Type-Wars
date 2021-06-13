@@ -1,12 +1,13 @@
 package com.typewars.service.stats;
 
 import com.typewars.dao.DailyCountersDao;
-import com.typewars.model.DailyCounterEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DailyCountersService {
     private final DailyCountersDao dailyCountersDao;
+
+    private static final long MILLISECONDS_IN_A_DAY = 1000L * 60 * 60 * 24;
 
     public DailyCountersService(DailyCountersDao dailyCountersDao) {
         this.dailyCountersDao = dailyCountersDao;
@@ -18,6 +19,6 @@ public class DailyCountersService {
     }
 
     private Long getCurrentDay() {
-        return System.currentTimeMillis() / (1000L * 60 * 60 * 24);
+        return System.currentTimeMillis() / MILLISECONDS_IN_A_DAY;
     }
 }
