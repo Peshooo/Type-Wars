@@ -17,6 +17,9 @@
   <link href="favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="styles/resetsheet.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
+        <script src="scripts/jquery.js"></script>
+        <script src="scripts/sockjs.js"></script>
+        <script src="scripts/stomp.js"></script>
 
 
     <script>
@@ -94,6 +97,7 @@
     </header>
 
     <script>
+        var stompClient = null;
         var gameId = "";
 
         function generateGameId() {
@@ -102,6 +106,50 @@
             http.responseType = "json";
             http.onload = function() {
                 gameId = http.response.gameId;
+                var socket = new SockJS('/gs-guide-websocket');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                        console.log('Connected: ' + frame);
+                        stompClient.subscribe('/game-out/' + gameId, function (message) {
+                            let gameState = JSON.parse(message.body);
+                            if (gameState == null) {
+                                                        drawScore(rememberedScore);
+                                                        clearInterval(getGameStateInterval);
+                                                        return;
+                                                        //document.getElementById("resetButton").click();
+                                                        //return;
+                                                    }
+
+                                                    if (gameState.status == 'FINISHED') {
+                                                        rememberedScore = gameState.score
+                                                        drawScore(rememberedScore);
+                                                        clearInterval(getGameStateInterval);
+                                                        return;
+                                                    } else {
+                                                        timer.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
+                                                        score.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
+                                                    }
+
+                                                    let wordsList = gameState.words;
+
+                                                    score.innerHTML = "Score: " + gameState.score;
+                                                    timer.innerHTML = Math.ceil(gameState.timeLeftMillis / 1000);
+
+                                                    activeWords = [];
+                                                    for (let i = 0; i < wordsList.length; i++) {
+                                                        activeWords.push(
+                                                            new word_t(
+                                                                wordsList[i].word,
+                                                                wordsList[i].color,
+                                                                wordsList[i].position.x, wordsList[i].position.y,
+                                                                wordsList[i].size.width, wordsList[i].size.height,
+                                                                wordsList[i].velocity.x, wordsList[i].velocity.y,
+                                                                "white"));
+                                                    }
+
+                                                    render();
+                        });
+                    });
             }
             http.send();
         }
@@ -217,53 +265,7 @@
                 if (gameId.length != 36) {
                     return;
                 }
-                let request = new XMLHttpRequest();
-                request.open('GET', <%=proxyUrl%> + gameId, true);
-                request.responseType = 'json';
-                request.onreadystatechange = function() {
-                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                        let gameState = request.response;
-
-                        if (gameState == null) {
-                            drawScore(rememberedScore);
-                            clearInterval(getGameStateInterval);
-                            return;
-                            //document.getElementById("resetButton").click();
-                            //return;
-                        }
-
-                        if (gameState.status == 'FINISHED') {
-                            rememberedScore = gameState.score
-                            drawScore(rememberedScore);
-                            clearInterval(getGameStateInterval);
-                            return;
-                        } else {
-                            timer.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
-                            score.style.backgroundColor = "rgba(70, 70, 70, 0.7)";
-                        }
-
-                        let wordsList = gameState.words;
-
-                        score.innerHTML = "Score: " + gameState.score;
-                        timer.innerHTML = Math.ceil(gameState.timeLeftMillis / 1000);
-
-                        activeWords = [];
-                        for (let i = 0; i < wordsList.length; i++) {
-                            activeWords.push(
-                                new word_t(
-                                    wordsList[i].word,
-                                    wordsList[i].color,
-                                    wordsList[i].position.x, wordsList[i].position.y,
-                                    wordsList[i].size.width, wordsList[i].size.height,
-                                    wordsList[i].velocity.x, wordsList[i].velocity.y,
-                                    "white"));
-                        }
-                    }
-
-                    render();
-                }
-
-                request.send(gameId);
+                stompClient.send(("/game-in/" + gameId).trim(), {}, null);
             }
 
             function startIntervals() {
